@@ -16,10 +16,11 @@ public class Customer {
     int discount;
     char gender;
 
-    public Customer(int ID, String name, int discount) {
+    public Customer(int ID, String name, int discount, char gender) {
         this.ID = ID;
         this.name = name;
         this.discount = discount;
+        this.gender = gender;
     }
     
 
@@ -35,7 +36,7 @@ public class Customer {
         return discount;
     }
     
-     public int getGender() {
+     public char getGender() {
         return gender;
     }
 
