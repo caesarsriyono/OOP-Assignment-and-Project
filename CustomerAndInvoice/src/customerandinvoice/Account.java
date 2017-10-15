@@ -61,10 +61,13 @@ public class Account {
      
        public void withdraw(double amount)
     {
-        balance -= amount;
-        if
-    };
-
-
-    
+        if (balance >= amount){
+        balance -= amount;}
+        else {System.out.println("amount withdrawn exceeds the current balance!");
+         
+    }
+        
 }
+}
+    
+
