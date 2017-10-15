@@ -14,12 +14,14 @@ public class Customer {
     int ID;
     String name;
     int discount;
+    char gender;
 
     public Customer(int ID, String name, int discount) {
         this.ID = ID;
         this.name = name;
         this.discount = discount;
     }
+    
 
     public int getID() {
         return ID;
@@ -32,6 +34,10 @@ public class Customer {
     public int getDiscount() {
         return discount;
     }
+    
+     public int getGender() {
+        return gender;
+    }
 
     public void setDiscount(int discount) {
         this.discount = discount;
@@ -39,7 +45,8 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer{" + "name=" + name + '}';
+        return "Customer{" + "ID=" + ID + ", name=" + name + '}';
     }
+
   
 }
