@@ -19,7 +19,7 @@ public class TestAccount {
         System.out.println("The Customer name is: " + account.getCustomerName());     // Test getCustomerName
         System.out.println("ID number: " + account.getId()+ " has a balance of $" + account.getBalance());   // Test getid and getBalance
         
-        System.out.println("User withdraw $1500");
+        System.out.println("User withdraws $1500");
         account.withdraw(1500.0); //test withdraw
         
        
