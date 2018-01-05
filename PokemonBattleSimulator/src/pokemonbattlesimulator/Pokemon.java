@@ -12,23 +12,25 @@ package pokemonbattlesimulator;
 public class Pokemon {
     //intstance variable
   private String PokeName;
-  private int level;
-  private int health;
-  private int attack;
-  private int defense;
-  private int sattack;
-  private int sdefense;
-  private int speed;
-  private String MoveName1;
-  private int MovePower1;
-  private String MoveName2;
-  private int MovePower2;
+  private float level;
+  private float health;
+  private float attack;
+  private float defense;
+  private float sattack;
+  private float sdefense;
+  private float speed;
+  public int stage;
+  public Moves move1;
+  public Moves move2;
          
     public Pokemon() {
     }
 
-  
-    public Pokemon(String PokeName, int level, int health, int attack, int defense, int sattack, int sdefense, int speed) {
+    
+    public Pokemon(String PokeName, int level, int health, int attack,
+                    int defense, int sattack,int sdefense, int speed,
+                    int stage,Moves move1, Moves move2) 
+    {
         this.PokeName = PokeName;
         this.level = level;
         this.health = health;
@@ -37,58 +39,61 @@ public class Pokemon {
         this.sattack = sattack;
         this.sdefense = sdefense;
         this.speed = speed;
-        this.MoveName1= MoveName1;
-        this.MovePower1 = MovePower1;
-        this.MoveName2 = MoveName2;
-        this.MovePower2 = MovePower2;
+        this.stage = stage;
+        this.move1 = move1;
+        this.move2 = move2;
+    }
+
+    public void setMove1(Moves move1) {
+        this.move1 = move1;
+    }
+
+    public void setMove2(Moves move2) {
+        this.move2 = move2;
+    }
+
+    public Moves getMove1() {
+        return move1;
+    }
+
+    public Moves getMove2() {
+        return move2;
     }
 
     public String getPokeName() {
         return PokeName;
     }
 
-    public int getLevel() {
+    public float getLevel() {
         return level;
     }
 
-    public int getHealth() {
+    public float getHealth() {
         return health;
     }
 
-    public int getAttack() {
+    public float getAttack() {
         return attack;
     }
 
-    public int getDefense() {
+    public float getDefense() {
         return defense;
     }
 
-    public int getSattack() {
+    public float getSattack() {
         return sattack;
     }
 
-    public int getSdefense() {
+    public float getSdefense() {
         return sdefense;
     }
 
-    public int getSpeed() {
+    public float getSpeed() {
         return speed;
     }
 
-    public String getMoveName1() {
-        return MoveName1;
-    }
-
-    public int getMovePower1() {
-        return MovePower1;
-    }
-
-    public String getMoveName2() {
-        return MoveName2;
-    }
-
-    public int getMovePower2() {
-        return MovePower2;
+    public int getStage() {
+        return stage;
     }
 
     public void setPokeName(String PokeName) {
@@ -102,6 +107,7 @@ public class Pokemon {
     public void setHealth(int health) {
         this.health = health;
     }
+   
 
     public void setAttack(int attack) {
         this.attack = attack;
@@ -123,24 +129,17 @@ public class Pokemon {
         this.speed = speed;
     }
 
-    public void setMoveName1(String MoveName1) {
-        this.MoveName1 = MoveName1;
+    public void setStage(int stage) {
+        this.stage = stage;
     }
+    
 
-    public void setMovePower1(int MovePower1) {
-        this.MovePower1 = MovePower1;
-    }
-
-    public void setMoveName2(String MoveName2) {
-        this.MoveName2 = MoveName2;
-    }
-
-    public void setMovePower2(int MovePower2) {
-        this.MovePower2 = MovePower2;
-    }
 
     @Override
     public String toString() {
-        return "Pokemon{" + "PokeName=" + PokeName + ", level=" + level + ", health=" + health + ", attack=" + attack + ", defense=" + defense + ", sattack=" + sattack + ", sdefense=" + sdefense + ", speed=" + speed + ", MoveName1=" + MoveName1 + ", MovePower1=" + MovePower1 + ", MoveName2=" + MoveName2 + ", MovePower2=" + MovePower2 + '}';
+        return "Pokemon{" + "PokeName=" + PokeName + ", level=" + level + ","
+                + " health=" + health + ", attack=" + attack + ", defense=" +
+                defense + ", sattack=" + sattack + ", sdefense=" + sdefense + 
+                ", speed=" + speed + ", stage=" + stage + '}';
     }
 }
