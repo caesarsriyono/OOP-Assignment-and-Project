@@ -10,11 +10,11 @@ import java.util.Scanner;
 
 /**
  *
- * @author Caesar
+ * @author ASUS1
  */ 
 public class Battle {
 public static void makeMove(Moves pokeMove, Pokemon attPokemon, Pokemon targetPokemon){
-   int[] stage_multiplier = {2/8,2/7,2/6,2/5,2/4,2/3,2/2,3/2,4/2,5/2,6/2,7/2,8/2};   
+   float[] stage_multiplier = {0.25f,0.28f,0.3f,0.4f,0.5f,0.6f,1,1.5f,2,2.5f,3,3.5f,4};   
     if (pokeMove.getMoveType() == 0){  
         
        float h1 = attPokemon.getHealth();
@@ -40,7 +40,7 @@ public static void makeMove(Moves pokeMove, Pokemon attPokemon, Pokemon targetPo
                 
     //Print MoveName and MoveDamage            
         System.out.println(attPokemon.getPokeName()+" use "+pokeMove.getMoveName()+"!");
-        System.out.println(attPokemon.getPokeName()+ " attack hit " +pokeMove.getMoveDamage()+ " damages");
+        System.out.println(attPokemon.getPokeName()+ " attack hit " +pokeMove.getMoveDamage()+ " damage");
            
     
      // Print After Damage Stats
@@ -55,20 +55,61 @@ public static void makeMove(Moves pokeMove, Pokemon attPokemon, Pokemon targetPo
            else 
      if (pokeMove.getMoveType() == 1)  {
          
-    //print MoveName and Move effect     
-         System.out.println(attPokemon.getPokeName()+" use "+pokeMove.getMoveName()+"!");
-         System.out.println(targetPokemon.getPokeName()+ " stage is " +targetPokemon.getStage());
-         targetPokemon.setStage(targetPokemon.getStage()-1);
-         
-         targetPokemon.setDefense(stage_multiplier[targetPokemon.getStage()] * targetPokemon.getDefense());
-         
-         System.out.println(targetPokemon.getDefense());
+
+         System.out.println(attPokemon.getPokeName()+" use "+pokeMove.getMoveName()+"!");                
+         targetPokemon.setStage(targetPokemon.getStage()-1);          
+         System.out.println(targetPokemon.getPokeName()+" defense is " +(int)targetPokemon.getDefense());         
+         targetPokemon.setDefense(stage_multiplier[targetPokemon.getStage()] * targetPokemon.getDefense());        
+         System.out.println(targetPokemon.getPokeName()+ " defense is reduced to "+(int)targetPokemon.getDefense());
                  }
+     
      //Lower Enemy Attack Stage Modifier Move
            else
      if (pokeMove.getMoveType() == 2) {
+         
+         System.out.println(attPokemon.getPokeName()+" use "+pokeMove.getMoveName()+"!");                
+         targetPokemon.setStage(targetPokemon.getStage()-1);          
+         System.out.println(targetPokemon.getPokeName()+" attack is " +(int)targetPokemon.getAttack());         
+         targetPokemon.setAttack(stage_multiplier[targetPokemon.getStage()] * targetPokemon.getAttack());        
+         System.out.println(targetPokemon.getPokeName()+ " attack is reduced to "+(int)targetPokemon.getAttack());
+         
         
      } 
+     
+     //Raise Self Defense Stage Modifier Move
+           else
+     if (pokeMove.getMoveType() == 3) {
+         
+         System.out.println(attPokemon.getPokeName()+" use "+pokeMove.getMoveName()+"!");                
+         targetPokemon.setStage(attPokemon.getStage()+1);          
+         System.out.println(attPokemon.getPokeName()+" defense is " +(int)targetPokemon.getDefense());         
+         targetPokemon.setDefense(stage_multiplier[targetPokemon.getStage()] * targetPokemon.getDefense());        
+         System.out.println(targetPokemon.getPokeName()+ " is increased to "+(int)targetPokemon.getDefense());
+        
+     } 
+     
+    //Confuses enemy and increases enemy attack by 2 stage
+          else
+     if (pokeMove.getMoveType() == 3) {
+         
+          System.out.println(attPokemon.getPokeName()+" use "+pokeMove.getMoveName()+"!");  
+          
+          // Confused Damage Algorithm
+           pokeMove.confusedDamage = (int) Math.round(
+               (((2*attPokemon.getLevel()+10)/250)*
+               (attPokemon.getAttack()/targetPokemon.getDefense())*
+               15+2)*
+               stage_multiplier[attPokemon.getStage()]
+               );   
+                targetPokemon.setHealth((int) (targetPokemon.getHealth() - pokeMove.confusedDamage));
+                targetPokemon.setStage(attPokemon.getStage()+2);
+                targetPokemon.setAttack(stage_multiplier[targetPokemon.getStage()] * targetPokemon.getAttack()); 
+                
+          System.out.println(targetPokemon.getPokeName()+ " is confused and it attacks itself with "+pokeMove.confusedDamage+ " damage");
+          System.out.println(targetPokemon.getPokeName()+ "damage is increased to "+ targetPokemon.getAttack());
+                
+                
+     }
 }
     //Main method
      public static void main(String[] args){ 
@@ -154,7 +195,7 @@ System.out.println("Choose a Pokemon : \n" +"1) Chimcar\n" +"2) Piplup\n" +"3) T
     
     //randomize enemy pokemon
     Random random = new Random();
-    int randomNumberEnemy = random.nextInt(2);
+    int randomNumberEnemy = random.nextInt(1);
     if(randomNumberEnemy==0){
                      ePokemon.setPokeName("Starly"); 
                      ePokemon.setLevel(5);
@@ -163,7 +204,7 @@ System.out.println("Choose a Pokemon : \n" +"1) Chimcar\n" +"2) Piplup\n" +"3) T
                      ePokemon.setDefense(6);
                      ePokemon.setSattack(6);
                      ePokemon.setSdefense(6);
-                     ePokemon.setSpeed(8);
+                     ePokemon.setSpeed(20);
                      ePokemon.setStage(6);
                      ePokemon.setMove1(new Moves("Tackle",40,0));
                   
@@ -176,10 +217,10 @@ System.out.println("Choose a Pokemon : \n" +"1) Chimcar\n" +"2) Piplup\n" +"3) T
                      ePokemon.setDefense(15);
                      ePokemon.setSattack(5);
                      ePokemon.setSdefense(20);
-                     ePokemon.setSpeed(8);
+                     ePokemon.setSpeed(14);
                      ePokemon.setStage(6);
                      ePokemon.setMove1(new Moves("Peck",40,0));
-                     ePokemon.setMove2(new Moves("Head Banging",0,0));
+                     ePokemon.setMove2(new Moves("Head Banging",0,4));
                     
                      
 }
@@ -192,21 +233,36 @@ System.out.println("I choose you! "+MyPokemon.getPokeName());
 
 
         if(MyPokemon.getSpeed()>ePokemon.getSpeed()){
+                      
              Scanner MyMove = new Scanner(System.in);
-             System.out.println("Choose your move : \n" +"1) "+ MyPokemon.move1.getMoveName()+"\n"+"2) "+ MyPokemon.move2.getMoveName());
-              
+             System.out.println(MyPokemon.getPokeName()+" attacks first"+"Choose your move : \n" +"1) "
+                     + MyPokemon.move1.getMoveName()+"\n"+"2) "+ MyPokemon.move2.getMoveName());
+             
              int moveChoice = MyMove.nextInt();
         if (moveChoice == 1){
                 makeMove(MyPokemon.move1, MyPokemon, ePokemon);}
         else if(moveChoice == 2){
                 makeMove(MyPokemon.move2, MyPokemon, ePokemon);
                      }
+        }
+        else{
+           
+             System.out.println(ePokemon.getPokeName()+" attacks first");
+             Random randomEnemyMove = new Random();
+             int randomMove = randomEnemyMove.nextInt(5);
              
-       
-       
-                                                     }
+             if(ePokemon.getPokeName()== "Starly")
+                 makeMove(ePokemon.move1, ePokemon, MyPokemon);
+             
+             else if(randomMove==0 || randomMove==1 || randomMove==2){
+                makeMove(ePokemon.move1, ePokemon, MyPokemon);}
+              else 
+                makeMove(ePokemon.move2, ePokemon, MyPokemon);
+                
+             }
+                                                    }
      }
-}
+
      
      
     
