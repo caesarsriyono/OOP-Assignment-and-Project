@@ -16,24 +16,49 @@ public class Pokemon {
   private float health;
   private float attack;
   private float defense;
-  private float sattack;
-  private float sdefense;
+  private float baseAttack;
+  private float baseDefense;
   private float speed;
   public int stage;
+  public int attackStage;
+  public int defenseStage;
   public Moves move1;
   public Moves move2;
          
     public Pokemon() {
     }
 
-    public Pokemon(String PokeName, float level, float health, float attack, float defense, float sattack, float sdefense, float speed, int stage, Moves move1, Moves move2) {
+    public Pokemon(int attackStage, int defenseStage) {
+        this.attackStage = attackStage;
+        this.defenseStage = defenseStage;
+    }
+
+    public int getAttackStage() {
+        return attackStage;
+    }
+
+    public void setAttackStage(int attackStage) {
+        this.attackStage = attackStage;
+    }
+
+    public int getDefenseStage() {
+        return defenseStage;
+    }
+
+    public void setDefenseStage(int defenseStage) {
+        this.defenseStage = defenseStage;
+    }
+
+    public Pokemon(String PokeName, float level, float health, float attack,
+            float defense, float sattack, float sdefense, float speed,
+            int stage, Moves move1, Moves move2) {
         this.PokeName = PokeName;
         this.level = level;
         this.health = health;
         this.attack = attack;
         this.defense = defense;
-        this.sattack = sattack;
-        this.sdefense = sdefense;
+        this.baseAttack = sattack;
+        this.baseDefense = sdefense;
         this.speed = speed;
         this.stage = stage;
         this.move1 = move1;
@@ -80,20 +105,20 @@ public class Pokemon {
         this.defense = defense;
     }
 
-    public float getSattack() {
-        return sattack;
+    public float getBaseAttack() {
+        return baseAttack;
     }
 
-    public void setSattack(float sattack) {
-        this.sattack = sattack;
+    public void setBaseAttack(float sattack) {
+        this.baseAttack = sattack;
     }
 
-    public float getSdefense() {
-        return sdefense;
+    public float getBaseDefense() {
+        return baseDefense;
     }
 
-    public void setSdefense(float sdefense) {
-        this.sdefense = sdefense;
+    public void setBaseDefense(float sdefense) {
+        this.baseDefense = sdefense;
     }
 
     public float getSpeed() {
@@ -128,12 +153,11 @@ public class Pokemon {
         this.move2 = move2;
     }
 
-   
     @Override
     public String toString() {
-        return "Pokemon{" + "PokeName=" + PokeName + ", level=" + level + ","
-                + " health=" + health + ", attack=" + attack + ", defense=" +
-                defense + ", sattack=" + sattack + ", sdefense=" + sdefense + 
-                ", speed=" + speed + ", stage=" + stage + '}';
+        return "Pokemon{" + "PokeName=" + PokeName + ", level=" + level + ", health=" + health + ", attack=" + attack + ", defense=" + defense + ", baseAttack=" + baseAttack + ", baseDefense=" + baseDefense + ", speed=" + speed + ", stage=" + stage + ", attackStage=" + attackStage + ", defenseStage=" + defenseStage + ", move1=" + move1 + ", move2=" + move2 + '}';
     }
+
+   
+    
 }

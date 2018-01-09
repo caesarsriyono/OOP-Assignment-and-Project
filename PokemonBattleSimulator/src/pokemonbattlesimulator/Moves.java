@@ -53,7 +53,8 @@ public class Moves {
 
     @Override
     public String toString() {
-        return "Moves{" + "MoveName=" + MoveName + ", MoveDamage=" + MoveDamage + ", MoveType=" + MoveType + '}';
+        return "Moves{" + "MoveName=" + MoveName + ", MoveDamage=" +
+                MoveDamage + ", MoveType=" + MoveType + '}';
     }
     
     
