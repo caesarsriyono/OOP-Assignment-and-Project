@@ -16,6 +16,7 @@ public class Battle {
     public static int round;
     public static float h1;
     public static float h2;
+    public static float TurnDamage;
     
     //create MakeMove function
 public static void makeMove(Moves pokeMove, Pokemon attPokemon,
@@ -32,22 +33,25 @@ public static void makeMove(Moves pokeMove, Pokemon attPokemon,
             round = 0;
         }
       
-    //MoveDamage Algorithm
-       pokeMove.MoveDamage = (int)(
+       
+    //MoveDamage Algorithm                
+    
+            TurnDamage = (int)(
                (((2*attPokemon.getLevel()+10)/250)*
                (attPokemon.getAttack()/targetPokemon.getDefense())*
                     pokeMove.getMoveDamage()+2)*
                stage_multiplier[attPokemon.getAttackStage()] );   
        
-                    targetPokemon.setHealth((int) (targetPokemon.getHealth()
-                        - pokeMove.MoveDamage));
+               targetPokemon.setHealth((int) (targetPokemon.getHealth()
+                        - TurnDamage));
+               
   
                 
     //Print MoveName and MoveDamage            
             System.out.println(attPokemon.getPokeName()+
                     " uses "+pokeMove.getMoveName()+"!");
             System.out.println(attPokemon.getPokeName()+
-                    " attack hit "+pokeMove.getMoveDamage()+ " damage");
+                    " attack hit "+(int)TurnDamage+ " damage");
            
     
      // Print After Damage Stats
@@ -92,13 +96,10 @@ public static void makeMove(Moves pokeMove, Pokemon attPokemon,
                    
            System.out.println(targetPokemon.getPokeName()+
                    " defense is reduced to "+(int)targetPokemon.getDefense());}
-          }
+ }
     
     
-    
-    
-                 
-     
+        
      //Lower Enemy Attack Stage Modifier Move
     else if (pokeMove.getMoveType() == 2) {
          //handler to prevent defense stage to be reduced below stage 0  
@@ -117,35 +118,48 @@ public static void makeMove(Moves pokeMove, Pokemon attPokemon,
                    pokeMove.getMoveName()+"!");                
                    targetPokemon.setAttackStage(targetPokemon.getAttackStage()-1);          
            System.out.println(targetPokemon.getPokeName()+" attack is "+
-                    targetPokemon.getAttack()); 
+                    (int)targetPokemon.getAttack()); 
            
-           System.out.println(targetPokemon.getPokeName()+" attack stage is " +
-                   targetPokemon.getAttackStage()); 
+           System.out.println(targetPokemon.getPokeName()+" attack stage is reduced to " +
+                   (int)targetPokemon.getAttackStage()); 
             //lower attack stage
                    targetPokemon.setAttack(stage_multiplier[targetPokemon.getAttackStage()]* 
-                   targetPokemon.getAttack());      
+                   targetPokemon.getBaseAttack());      
            
            System.out.println(targetPokemon.getPokeName()+
                    " attack is reduced to "+(int)targetPokemon.getAttack());       
             } 
-        }
+    }
              
      
              
      //Raise Self Defense Stage Modifier Move
              else if (pokeMove.getMoveType() == 3) {
+             
+                  //handler to prevent defense stage to be reduced below stage 0  
+            if(attPokemon.getDefenseStage()==12){
+               
+            System.out.println(attPokemon.getPokeName()+" uses "+
+                   pokeMove.getMoveName()+"!");    
+            //print cannot decrease attack level
+             System.out.println(attPokemon.getPokeName()+
+                     " defense level is already at its highest,"
+                             + " so the move doesnt have any effect");      
+          }
+          
+             else{
          
          System.out.println(attPokemon.getPokeName()+" uses "+
                  pokeMove.getMoveName()+"!");                
-                 targetPokemon.setStage(attPokemon.getStage()+1);          
+                 attPokemon.setDefenseStage(attPokemon.getDefenseStage()+1);          
          System.out.println(attPokemon.getPokeName()+" defense is " +
-                 (int)targetPokemon.getDefense());         
-         targetPokemon.setDefense(stage_multiplier[targetPokemon.getStage()]*
-                 targetPokemon.getDefense());        
-         System.out.println(targetPokemon.getPokeName()+ " is increased to "+
-                 (int)targetPokemon.getDefense());       
+                 (int)attPokemon.getDefense());         
+         attPokemon.setDefense(stage_multiplier[attPokemon.getDefenseStage()]*
+                 attPokemon.getBaseDefense());        
+         System.out.println(attPokemon.getPokeName()+ " defense is increased to "+
+                 (int)attPokemon.getDefense());       
                                         } 
-                
+             }
      
     //Confuses enemy and increases enemy attack by 2 stage
     else if (pokeMove.getMoveType() == 3) {
@@ -242,10 +256,10 @@ public static void makeMove(Moves pokeMove, Pokemon attPokemon,
              {
                      MyPokemon.setPokeName("Turtwig");
                      MyPokemon.setLevel(5);
-                     MyPokemon.setHealth(220);
-                     MyPokemon.setAttack(130);
-                     MyPokemon.setDefense(120);
-                     MyPokemon.setBaseAttack(11);
+                     MyPokemon.setHealth(22);
+                     MyPokemon.setAttack(13);
+                     MyPokemon.setDefense(12);
+                     MyPokemon.setBaseAttack(13);
                       MyPokemon.setBaseDefense(12);
                      MyPokemon.setSpeed(9);
                      MyPokemon.setAttackStage(6);
